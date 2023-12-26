@@ -4,4 +4,5 @@ class ItemsController < ApplicationController
   def index
     
   end
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
 end
