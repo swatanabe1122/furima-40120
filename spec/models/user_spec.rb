@@ -62,13 +62,13 @@ RSpec.describe User, type: :model do
       it 'メールアドレスが一意性である' do
         FactoryBot.create(:user, email: @user.email)
         @user.valid?
-        expect(@user.errors.full_messages).to include("Email has already been taken")
+        expect(@user.errors.full_messages).to include('Email has already been taken')
       end
 
       it 'メールアドレスは@を含む必要がある' do
         @user.email = 'userexample.com'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Email is invalid")
+        expect(@user.errors.full_messages).to include('Email is invalid')
       end
 
       it 'パスワードが空では登録できない' do
@@ -80,13 +80,13 @@ RSpec.describe User, type: :model do
       it 'パスワードは6文字以上であること' do
         @user.password = 'abc12'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
+        expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
       end
 
       it 'パスワードは半角英数字混合であること' do
         @user.password = 'abcdef'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
 
       it 'パスワードとパスワード（確認用）が一致すること' do
@@ -106,7 +106,7 @@ RSpec.describe User, type: :model do
         @user.first_name = 'abc'
         @user.last_name = '123'
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name is invalid", "Last name is invalid")
+        expect(@user.errors.full_messages).to include('First name is invalid', 'Last name is invalid')
       end
 
       it 'お名前カナ(全角)が空では登録できない' do
@@ -120,7 +120,7 @@ RSpec.describe User, type: :model do
         @user.first_name_kana = 'やまだ'
         @user.last_name_kana = 'たろう'
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name kana is invalid", "Last name kana is invalid")
+        expect(@user.errors.full_messages).to include('First name kana is invalid', 'Last name kana is invalid')
       end
 
       it '生年月日が空では登録できない' do
