@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   #商品の画像を投稿
   has_one_attached :image
   # 注文の関連付け
-  #has_one :order
+  has_one :order
 
   validates :item_status_id, numericality: { other_than: 0 } 
   # コメントの関連付け
