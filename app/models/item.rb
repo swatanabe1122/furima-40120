@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :item_status
-
+  belongs_to :shipping_cost
   # ユーザーの関連付け
   belongs_to :user
   #商品の画像を投稿
