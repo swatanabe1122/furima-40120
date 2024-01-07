@@ -8,7 +8,7 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
-  #has_one :order
+  has_one :order
 
   validates :name, :description, :category_id, :item_status_id, :shipping_cost_id, :prefecture_id, :shipping_date_id, :price, presence: true
   validates :category_id, :item_status_id, :shipping_cost_id, :prefecture_id, :shipping_date_id, numericality: { other_than: 0, message: "must be selected" }
