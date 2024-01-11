@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user do
-    nickname { Faker::Internet.username(specifier: 5..8) } # ユニークなニックネームに変更
+    nickname { Faker::Internet.username(specifier: 5..8) }
     email { Faker::Internet.email }
     password { 'password123' }
     password_confirmation { 'password123' }
