@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    @item = Item.find(params[:item_id])
+   
     @order_form = OrderForm.new
   end
 
@@ -24,9 +24,9 @@ class OrdersController < ApplicationController
   
 
   private
+  before_action :set_item, only: [:index]
 
   def order_params
-    #params.require(:order_form).permit(:postcode, :prefecture_id, :city, :block, :building, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id])
     permitted_params = params.require(:order_form).permit(:postcode, :prefecture_id, :city, :block, :building, :phone_number)
     permitted_params.merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
@@ -42,6 +42,10 @@ class OrdersController < ApplicationController
   def non_purchased_item
     @item = Item.find(params[:item_id])
     redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
   end
 
 end
