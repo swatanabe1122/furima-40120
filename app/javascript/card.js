@@ -1,5 +1,5 @@
 const pay = () => {
-   // console.log("OK")
+
   const publicKey = gon.public_key;
   const payjp =  Payjp(publicKey);
   const elements = payjp.elements();
@@ -28,7 +28,7 @@ const pay = () => {
       numberElement.clear();
       expiryElement.clear();
       cvcElement.clear();
-      // document.getElementById("charge-form").submit();
+
        document.getElementById("charge-form").submit();
     });
     e.preventDefault();
