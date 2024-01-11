@@ -10,7 +10,6 @@ class OrdersController < ApplicationController
 
   def create
     @order_form = OrderForm.new(order_params)
-    #binding.pry  # 追記
     if @order_form.valid?
       pay_item 
       @order_form.save
@@ -35,8 +34,7 @@ class OrdersController < ApplicationController
   def pay_item
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  
     Payjp::Charge.create(
-      #amount: @item.price[:price],  # 商品の値段
-      amount: @order_form.item_price,
+      amount: @order_form.item_price, # 商品の値段
       card: order_params[:token], # トークンを取得
       currency: 'jpy'              # 通貨の種類（日本円）
     )

@@ -26,11 +26,13 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if @item.user_id == current_user.id
-    else
+    if @item.user_id != current_user.id || @item.sold_out?
       redirect_to root_path
     end
+   
   end
+
+
 
   def update
     if @item.update(item_params)
@@ -40,9 +42,7 @@ class ItemsController < ApplicationController
     end
   end
   
-
-
-  private
+private
 
   def item_params
     # ストロングパラメータを設定
@@ -52,4 +52,6 @@ class ItemsController < ApplicationController
   def set_item
     @item = Item.find(params[:id])
    end
+
+   
 end
