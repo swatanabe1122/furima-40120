@@ -1,6 +1,7 @@
 class OrderForm
   include ActiveModel::Model
   attr_accessor :user_id, :item_id, :postcode, :prefecture_id, :city, :block, :building, :phone_number, :token
+
   # バリデーションの処理
   with_options presence: true do
     validates :user_id
@@ -14,12 +15,13 @@ class OrderForm
   end
 
   def save
-    order = Order.create(user_id: user_id, item_id: item_id)
-    ShippingAddress.create!(order_id: order.id, postcode: postcode, prefecture_id: prefecture_id, city: city, block: block, building: building, phone_number: phone_number)
+    order = Order.create(user_id:, item_id:)
+    ShippingAddress.create!(order_id: order.id, postcode:, prefecture_id:, city:, block:,
+                            building:, phone_number:)
   rescue ActiveRecord::RecordInvalid
     false
   end
-  
+
   def item_price
     item = Item.find(item_id)
     item.price

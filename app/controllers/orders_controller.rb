@@ -3,27 +3,27 @@ class OrdersController < ApplicationController
   before_action :non_purchased_item, only: [:index, :create]
 
   def index
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-   
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
+
     @order_form = OrderForm.new
   end
 
   def create
     @order_form = OrderForm.new(order_params)
     if @order_form.valid?
-      pay_item 
+      pay_item
       @order_form.save
       redirect_to root_path
     else
-      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
       # バリデーションエラーのログ出力
-    Rails.logger.debug("Validation failed: " + @order_form.errors.full_messages.to_sentence)
+      Rails.logger.debug('Validation failed: ' + @order_form.errors.full_messages.to_sentence)
       render :index, status: :unprocessable_entity
     end
   end
-  
 
   private
+
   before_action :set_item, only: [:index]
 
   def order_params
@@ -32,13 +32,14 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @order_form.item_price, # 商品の値段
       card: order_params[:token], # トークンを取得
-      currency: 'jpy'              # 通貨の種類（日本円）
+      currency: 'jpy' # 通貨の種類（日本円）
     )
   end
+
   def non_purchased_item
     @item = Item.find(params[:item_id])
     redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
@@ -47,5 +48,4 @@ class OrdersController < ApplicationController
   def set_item
     @item = Item.find(params[:item_id])
   end
-
 end
