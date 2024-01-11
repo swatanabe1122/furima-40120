@@ -49,7 +49,7 @@
 * has_one :shippingAddress
 
 
-# ShippingAddresテーブル
+# ShippingAddres テーブル
 | Column              | Type       | Options                        |
 | ------------------- | ---------- | ------------------------------ |
 | order               | references | null: false, foreign_key: true |
