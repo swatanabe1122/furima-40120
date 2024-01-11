@@ -4,7 +4,6 @@ class OrdersController < ApplicationController
 
   def index
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
-
     @order_form = OrderForm.new
   end
 
@@ -21,10 +20,6 @@ class OrdersController < ApplicationController
       render :index, status: :unprocessable_entity
     end
   end
-
-  private
-
-  before_action :set_item, only: [:index]
 
   def order_params
     permitted_params = params.require(:order_form).permit(:postcode, :prefecture_id, :city, :block, :building, :phone_number)
