@@ -15,8 +15,8 @@ class OrdersController < ApplicationController
       redirect_to root_path
     else
       gon.public_key = ENV['PAYJP_PUBLIC_KEY']
-      # バリデーションエラーのログ出力
-      Rails.logger.debug('Validation failed: ' + @order_form.errors.full_messages.to_sentence)
+       # バリデーションエラーのログ出力
+       Rails.logger.debug('Validation failed: ' + @order_form.errors.full_messages.to_sentence)
       render :index, status: :unprocessable_entity
     end
   end
